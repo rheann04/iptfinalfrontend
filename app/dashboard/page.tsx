@@ -1176,8 +1176,8 @@ const AdminDashboard = () => {
                   name="title"
                   required
                   className="w-full px-4 py-2 bg-slate-800 border border-indigo-500/30 rounded-lg text-indigo-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                  value={currentBook?.title || ''}
-                  onChange={(e) => setCurrentBook(prev => prev ? {...prev, title: e.target.value} : null)}
+                  value={newBook.title}
+                  onChange={(e) => setNewBook(prev => ({...prev, title: e.target.value}))}
                 />
               </div>
               <div>
@@ -1188,8 +1188,8 @@ const AdminDashboard = () => {
                   name="author"
                   required
                   className="w-full px-4 py-2 bg-slate-800 border border-indigo-500/30 rounded-lg text-indigo-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                  value={currentBook?.author || ''}
-                  onChange={(e) => setCurrentBook(prev => prev ? {...prev, author: e.target.value} : null)}
+                  value={newBook.author}
+                  onChange={(e) => setNewBook(prev => ({...prev, author: e.target.value}))}
                 />
               </div>
               <div>
@@ -1200,8 +1200,8 @@ const AdminDashboard = () => {
                   name="genre"
                   required
                   className="w-full px-4 py-2 bg-slate-800 border border-indigo-500/30 rounded-lg text-indigo-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                  value={currentBook?.genre || ''}
-                  onChange={(e) => setCurrentBook(prev => prev ? {...prev, genre: e.target.value} : null)}
+                  value={newBook.genre}
+                  onChange={(e) => setNewBook(prev => ({...prev, genre: e.target.value}))}
                 />
               </div>
               <div>
@@ -1217,15 +1217,38 @@ const AdminDashboard = () => {
                     min="1"
                     required
                     className="w-full px-4 py-2 bg-slate-800 border border-indigo-500/30 rounded-lg text-indigo-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all pr-16"
-                    value={currentBook?.total_copies || ''}
+                    value={newBook.total_copies}
                     onChange={(e) => {
                       const value = parseInt(e.target.value);
                       if (!isNaN(value) && value > 0) {
-                        setCurrentBook(prev => prev ? {...prev, total_copies: value} : null);
+                        setNewBook(prev => ({...prev, total_copies: value}));
                       }
                     }}
                   />
                 </div>
+              </div>
+              <div className="flex justify-end space-x-3 pt-4 border-t border-gray-700 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowAddBookModal(false)}
+                  className="px-4 py-2 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading.action}
+                  className="px-4 py-2 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading.action ? (
+                    <div className="flex items-center">
+                      <ArrowPathIcon className="animate-spin -ml-1 mr-2 h-4 w-4" />
+                      Adding...
+                    </div>
+                  ) : (
+                    'Add Book'
+                  )}
+                </button>
               </div>
             </form>
           </div>
