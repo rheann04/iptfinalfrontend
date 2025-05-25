@@ -12,7 +12,7 @@ import {
 
 export default function Home() {
   const router = useRouter();
-
+//
   useEffect(() => {
     router.push('/auth');
   }, [router]);
